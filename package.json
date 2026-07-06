@@ -1,0 +1,29 @@
+{
+  "name": "mino-bot",
+  "version": "2.0.0",
+  "description": "Mino Bot Ultra - 150+ Fitur WhatsApp Bot by kevsoft-id",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "pm2": "pm2 start ecosystem.config.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@hapi/boom": "^10.0.1",
+    "@napi-rs/canvas": "^0.1.53",
+    "@whiskeysockets/baileys": "^6.7.9",
+    "axios": "^1.6.8",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.4.5",
+    "form-data": "^4.0.0",
+    "fs-extra": "^11.2.0",
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
+    "pino": "^8.19.0",
+    "sharp": "^0.33.3",
+    "node-fetch": "^2.7.0"
+  },
+  "engines": { "node": ">=18.0.0" },
+  "author": "kevsoft-id",
+  "license": "MIT"
+}
