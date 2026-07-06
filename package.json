@@ -1,29 +1,19 @@
 {
-  "name": "mino-bot",
-  "version": "2.0.0",
-  "description": "Mino Bot Ultra - 150+ Fitur WhatsApp Bot by kevsoft-id",
-  "main": "index.js",
+  "name": "workspace",
+  "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
-    "start": "node index.js",
-    "pm2": "pm2 start ecosystem.config.js"
+    "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
+    "build": "pnpm run typecheck && pnpm -r --if-present run build",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },
+  "private": true,
   "dependencies": {
-    "@google/generative-ai": "^0.21.0",
-    "@hapi/boom": "^10.0.1",
-    "@napi-rs/canvas": "^0.1.53",
-    "@whiskeysockets/baileys": "^6.7.9",
-    "axios": "^1.6.8",
-    "chalk": "^4.1.2",
-    "dotenv": "^16.4.5",
-    "form-data": "^4.0.0",
-    "fs-extra": "^11.2.0",
-    "moment": "^2.30.1",
-    "moment-timezone": "^0.5.45",
-    "pino": "^8.19.0",
-    "sharp": "^0.33.3",
-    "node-fetch": "^2.7.0"
+    "@replit/connectors-sdk": "^0.4.1"
   },
-  "engines": { "node": ">=18.0.0" },
-  "author": "kevsoft-id",
-  "license": "MIT"
+  "devDependencies": {
+    "prettier": "^3.8.4",
+    "typescript": "~5.9.3"
+  }
 }
