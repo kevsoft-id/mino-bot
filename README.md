@@ -50,7 +50,7 @@
 ### Termux (Android)
 ```bash
 pkg update && pkg install nodejs git -y
-git clone https://github.com/kevsoft-id/mino-bot
+git clone https://github.com/kevsoft-id/mino-bot || unzip mino-bot-ultra.zip
 cd mino-bot
 bash install.sh
 ```
@@ -58,12 +58,13 @@ bash install.sh
 ### VPS Ubuntu/Debian
 ```bash
 apt update && apt install nodejs npm git -y
+unzip mino-bot-ultra.zip
 cd mino-bot
 bash install.sh
 ```
 
 ### Panel (cPanel, Pterodactyl, dll)
-1. Upload & extract `mino-bot.zip`
+1. Upload & extract `mino-bot-ultra.zip`
 2. Buka terminal / file manager
 3. Edit `.env` sesuai kebutuhan
 4. Jalankan `npm install` lalu `node index.js`
