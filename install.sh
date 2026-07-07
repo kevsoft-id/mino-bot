@@ -1,99 +1,121 @@
 #!/usr/bin/env bash
-# ══════════════════════════════════════════
-#   🤖 MINO BOT ULTRA — Auto Installer
-#   Mendukung: Termux, Ubuntu/Debian VPS, Panel
-# ══════════════════════════════════════════
+# ══════════════════════════════════════════════════════════════
+#   🤖 MINO BOT ULTRA — Install Script
+#   Mendukung: Termux, Ubuntu/Debian VPS, CentOS/RHEL, macOS
+#
+#   Cara pakai: bash install.sh
+#   ATAU langsung: node setup.js (jika Node.js sudah ada)
+# ══════════════════════════════════════════════════════════════
 
-GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; CYAN='\033[0;36m'; NC='\033[0m'
+set -e
 
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}  🤖 MINO BOT ULTRA v2.0 — INSTALLER  ${NC}"
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'
+CYAN='\033[0;36m'; BOLD='\033[1m'; NC='\033[0m'
 
-detect_platform() {
-  if [ -d "/data/data/com.termux" ]; then echo "termux"
-  elif [ "$(uname)" = "Darwin" ]; then echo "macos"
-  elif [ -f "/etc/debian_version" ]; then echo "debian"
-  elif [ -f "/etc/redhat-release" ]; then echo "redhat"
-  else echo "unknown"; fi
-}
+ok()   { echo -e "${GREEN}✓ ${1}${NC}"; }
+warn() { echo -e "${YELLOW}⚠ ${1}${NC}"; }
+err()  { echo -e "${RED}✗ ${1}${NC}"; }
+info() { echo -e "${CYAN}ℹ ${1}${NC}"; }
 
-PLATFORM=$(detect_platform)
-echo -e "${GREEN}✓ Platform terdeteksi: ${PLATFORM}${NC}"
+echo -e "${CYAN}${BOLD}"
+echo "╔══════════════════════════════════════════════════════════╗"
+echo "║   🤖  MINO BOT ULTRA v2.0 — Auto Installer              ║"
+echo "║       github.com/kevsoft-id/minobot                      ║"
+echo "╚══════════════════════════════════════════════════════════╝"
+echo -e "${NC}"
 
-# ── Install Node.js jika belum ada ──
-if ! command -v node &>/dev/null; then
-  echo -e "${YELLOW}📦 Menginstall Node.js...${NC}"
+# ── Deteksi platform ──────────────────────────────────────────
+if [ -d "/data/data/com.termux" ]; then
+  PLATFORM="termux"
+elif [ "$(uname -s)" = "Darwin" ]; then
+  PLATFORM="macos"
+elif [ -f "/etc/debian_version" ] || grep -qi debian /etc/os-release 2>/dev/null; then
+  PLATFORM="debian"
+elif [ -f "/etc/redhat-release" ] || grep -qi "rhel\|centos\|fedora" /etc/os-release 2>/dev/null; then
+  PLATFORM="redhat"
+else
+  PLATFORM="unknown"
+fi
+ok "Platform: ${PLATFORM}"
+
+# ── Cek & install Node.js ──────────────────────────────────────
+install_node() {
+  warn "Node.js tidak ditemukan. Menginstall..."
   if [ "$PLATFORM" = "termux" ]; then
-    pkg update -y && pkg install nodejs -y
+    pkg update -y && pkg install nodejs-lts -y
   elif [ "$PLATFORM" = "debian" ]; then
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
     apt-get install -y nodejs
+  elif [ "$PLATFORM" = "redhat" ]; then
+    curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
+    yum install -y nodejs
+  elif [ "$PLATFORM" = "macos" ]; then
+    if command -v brew &>/dev/null; then
+      brew install node
+    else
+      err "Homebrew tidak ada. Install Node.js dari https://nodejs.org"
+      exit 1
+    fi
   else
-    echo -e "${RED}⚠ Install Node.js v18+ secara manual dari https://nodejs.org${NC}"; exit 1
+    err "Install Node.js v18+ dari https://nodejs.org lalu jalankan ulang."
+    exit 1
   fi
+}
+
+if ! command -v node &>/dev/null; then
+  install_node
 fi
 
 NODE_VER=$(node -v 2>/dev/null || echo "v0")
-echo -e "${GREEN}✓ Node.js: ${NODE_VER}${NC}"
+NODE_MAJOR=$(echo "$NODE_VER" | sed 's/v\([0-9]*\).*/\1/')
+ok "Node.js: ${NODE_VER}"
 
-# ── Buat direktori yang diperlukan ──
-mkdir -p database logs auth_info_baileys assets/thumb
-echo -e "${GREEN}✓ Direktori dibuat${NC}"
-
-# ── Setup .env ──
-if [ ! -f .env ]; then
-  cp .env.example .env
-  echo -e "${YELLOW}📝 .env dibuat dari template.${NC}"
-  echo ""
-  echo -e "${YELLOW}════ KONFIGURASI WAJIB ════${NC}"
-  echo ""
-  read -p "  ➤ Nomor Owner (6281234567890): " OWNER
-  read -p "  ➤ Nama Bot (Mino Bot Ultra): " BOTNAME
-  read -p "  ➤ Gemini API Key (dari aistudio.google.com): " GEMINI
-  OWNER=${OWNER:-6281234567890}
-  BOTNAME=${BOTNAME:-"Mino Bot Ultra"}
-  sed -i "s/6281234567890/${OWNER}/g" .env 2>/dev/null || sed -i "" "s/6281234567890/${OWNER}/g" .env
-  sed -i "s/Mino Bot Ultra/${BOTNAME}/g" .env 2>/dev/null || sed -i "" "s/Mino Bot Ultra/${BOTNAME}/g" .env
-  if [ -n "$GEMINI" ]; then
-    sed -i "s/your_gemini_api_key_here/${GEMINI}/g" .env 2>/dev/null || sed -i "" "s/your_gemini_api_key_here/${GEMINI}/g" .env
+if [ "$NODE_MAJOR" -lt 18 ] 2>/dev/null; then
+  err "Node.js versi ${NODE_VER} terlalu lama! Minimal v18."
+  if [ "$PLATFORM" = "termux" ]; then
+    info "Jalankan: pkg install nodejs-lts"
+  else
+    info "Update di: https://nodejs.org"
   fi
-  echo ""
+  exit 1
 fi
 
-# ── Install dependencies ──
-echo -e "${YELLOW}📦 Menginstall dependencies...${NC}"
-npm install --production
-echo -e "${GREEN}✓ Dependencies terinstall${NC}"
+# ── Cek npm ──────────────────────────────────────────────────
+if ! command -v npm &>/dev/null; then
+  warn "npm tidak ditemukan. Mencoba install..."
+  if [ "$PLATFORM" = "termux" ]; then
+    pkg install npm -y
+  fi
+fi
+ok "npm: $(npm -v 2>/dev/null || echo 'tersedia')"
 
-# ── Init database ──
-if [ ! -f database/users.json ]; then
-  echo '{"users":{}}' > database/users.json
-  echo '{"groups":{}}' > database/groups.json
-  echo '{}' > database/settings.json
-  echo -e "${GREEN}✓ Database diinisialisasi${NC}"
+# ── Buat direktori wajib ──────────────────────────────────────
+mkdir -p database logs auth_info_baileys assets/thumb
+ok "Direktori dibuat"
+
+# ── Init database jika belum ada ─────────────────────────────
+[ ! -f database/users.json ]   && echo '{"users":{}}' > database/users.json
+[ ! -f database/groups.json ]  && echo '{"groups":{}}' > database/groups.json
+[ ! -f database/settings.json ] && echo '{}' > database/settings.json
+ok "Database diinisialisasi"
+
+# ── Copy .env.example → .env jika belum ada ──────────────────
+if [ ! -f .env ] && [ -f .env.example ]; then
+  cp .env.example .env
+  warn ".env dibuat dari template. Setup interaktif akan dilanjutkan oleh node setup.js"
 fi
 
-# ── Install PM2 ──
-if ! command -v pm2 &>/dev/null; then
-  echo -e "${YELLOW}📦 Menginstall PM2...${NC}"
-  npm install -g pm2 2>/dev/null && echo -e "${GREEN}✓ PM2 terinstall${NC}" || echo -e "${YELLOW}⚠ PM2 skip (jalankan manual)${NC}"
-fi
+# ── Install dependencies ──────────────────────────────────────
+info "Menginstall dependencies Node.js..."
+npm install --production --no-fund --no-audit
+ok "Dependencies berinstall"
 
-# ── Make scripts executable ──
-chmod +x start.sh 2>/dev/null || true
+# ── Selesai, lanjut ke setup interaktif ─────────────────────
+echo ""
+echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${GREEN}${BOLD}  ✅  Persiapan selesai! Melanjutkan setup...${NC}"
+echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo ""
 
-echo ""
-echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${GREEN}  ✅ INSTALASI SELESAI!                ${NC}"
-echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo ""
-echo -e "${CYAN}  Cara menjalankan bot:${NC}"
-echo -e "  ${YELLOW}node index.js${NC}          → Jalankan langsung"
-echo -e "  ${YELLOW}bash start.sh${NC}          → Jalankan dengan script"
-echo -e "  ${YELLOW}bash start.sh pm2${NC}      → Jalankan dengan PM2 (background)"
-echo ""
-echo -e "${CYAN}  Scan QR code yang muncul dengan WhatsApp!${NC}"
-echo ""
-echo -e "${YELLOW}  ⚠ Pastikan edit .env jika belum lengkap!${NC}"
-echo ""
+# Jalankan setup interaktif
+exec node setup.js
