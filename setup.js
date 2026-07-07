@@ -185,6 +185,8 @@ function initDirectories() {
     "database/users.json":    JSON.stringify({ users: {} }, null, 2),
     "database/groups.json":   JSON.stringify({ groups: {} }, null, 2),
     "database/settings.json": JSON.stringify({}, null, 2),
+    "database/owners.json":   JSON.stringify({ owners: {} }, null, 2),
+    "database/premium.json":  JSON.stringify({ users: {} }, null, 2),
   };
   for (const [f, content] of Object.entries(dbFiles)) {
     if (!fs.existsSync(f)) {
