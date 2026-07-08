@@ -1,29 +1,39 @@
 {
-  "name": "mino-bot",
+  "name": "minobot",
   "version": "2.0.0",
-  "description": "Mino Bot Ultra - 150+ Fitur WhatsApp Bot by kevsoft-id",
+  "description": "MINOBOT v2 — WhatsApp Bot with Full Plugin System by KevSoft-ID",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "pm2": "pm2 start ecosystem.config.js"
+    "dev": "node index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevsoft-id/mino-bot"
+  },
+  "author": "KEVIN (KevSoft-ID) <https://github.com/kevsoft-id>",
+  "homepage": "https://github.com/kevsoft-id/mino-bot",
+  "bugs": {
+    "url": "https://github.com/kevsoft-id/mino-bot/issues"
+  },
+  "license": "MIT",
+  "keywords": ["whatsapp", "bot", "minobot", "kevsoft-id", "baileys", "plugin-system"],
   "dependencies": {
-    "@google/generative-ai": "^0.21.0",
-    "@hapi/boom": "^10.0.1",
-    "@napi-rs/canvas": "^0.1.53",
     "@whiskeysockets/baileys": "^6.7.9",
-    "axios": "^1.6.8",
+    "@hapi/boom": "^10.0.1",
+    "pino": "^8.21.0",
     "chalk": "^4.1.2",
-    "dotenv": "^16.4.5",
-    "form-data": "^4.0.0",
     "fs-extra": "^11.2.0",
+    "axios": "^1.7.4",
+    "node-cache": "^5.1.2",
+    "mathjs": "^12.4.1",
+    "qrcode": "^1.5.3",
+    "jimp": "^0.22.12",
+    "cheerio": "^1.0.0",
     "moment": "^2.30.1",
-    "moment-timezone": "^0.5.45",
-    "pino": "^8.19.0",
-    "sharp": "^0.33.3",
-    "node-fetch": "^2.7.0"
+    "moment-timezone": "^0.5.45"
   },
-  "engines": { "node": ">=18.0.0" },
-  "author": "kevsoft-id",
-  "license": "MIT"
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }

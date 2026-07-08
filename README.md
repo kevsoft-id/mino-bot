@@ -1,7 +1,7 @@
-# 🤖 Mino Bot Ultra v2.0
+# 🐾 MINOBOT v2 — WhatsApp Bot by KevSoft-ID
 
-> WhatsApp Bot **150+ Fitur** berbasis Baileys + Gemini AI  
-> by **kevsoft-id**
+> Bot WhatsApp kawaii dengan 50+ fitur, plugin system, dan persona neko yang asik!
+> Dibuat dengan ❤️ oleh [Kevin (KevSoft-ID)](https://github.com/kevsoft-id)
 
 ---
 
@@ -9,185 +9,152 @@
 
 | Kategori | Fitur |
 |----------|-------|
-| 🤖 AI | Chat Gemini, Imagine, Describe Gambar, Summarize, Code Generator, Cerita, Roast, Translate, KBBI, Sinonim, Grammar, Essay, dan lainnya |
-| 🔧 Tools | Sticker, QR Code, Screenshot Web, TTS, Binary, Morse, Base64, Caesar, Kalkulator, Password Gen, Weather, Wiki, Carbon Code, Brat, dll |
-| 📥 Downloader | TikTok, Instagram, YouTube MP3/MP4, Twitter/X, Facebook, Pinterest, Spotify |
-| 👥 Group | Tag All, Kick, Add, Promote, Demote, Antilink, Welcome, Goodbye, Auto AI, Mute, Open/Close, Set Nama/Deskripsi/Foto, dll |
-| 🎮 Game | Quiz, Tebak Kata, Tebak Angka, Hangman, Slot Machine, Truth/Dare, WYR, RPS, Trivia, Tebak Emoji |
-| 😄 Fun | Joke, Fakta, Love Meter, Zodiak, Shio, Kata Mutiara, Meme, Rekomendasi Film, Acak Kata, dll |
-| 🔍 Search | YouTube Search, GitHub, Kurs Valas, Anime, Film, Berita, NPM Package |
-| 🕌 Islamic | Jadwal Sholat, Al-Quran, Hadits, Doa Harian, Asmaul Husna, Kalender Hijriah |
-| 💰 Economy | Saldo, Daily, Work, Gamble, Transfer, Leaderboard, Rob, Shop, Inventory |
-| 🔄 Converter | Suhu, Berat, Panjang, Romawi, Warna HEX, Umur, Timezone |
-| 👑 Owner | Broadcast, Eval, Exec Shell, Add/Del Premium, GC List, Uptime, Set Nama Bot, **Read/Edit/Restore/List File (edit settings.js dkk langsung dari WA!)** |
-| ✨ AddFitur | **Tambah fitur baru secara otomatis dengan AI Gemini!** |
-| 🖼️ Canvas | **Profile Card (.profile), Quote Card (.quote)** — tema minimalis blue white dengan background custom |
-| 🔘 Interaktif | **Menu tombol + gambar (.ui)** — pesan interaktif native WhatsApp |
-| ⓘ Branding | **.kevsoft** — info & kontak resmi developer |
-
-### 🖼️ Fitur Canvas (Baru!)
-- `.profile` / `.pp` / `.card` — kartu profil canvas kamu (avatar, level, XP bar, rank, koin) dengan tema **minimalis blue white**
-- `.setbg <url>` atau reply gambar dengan `.setbg` — ganti background canvas profile kamu sendiri
-- `.setbg default` — kembali ke background bawaan (tembok bata)
-- `.bio <teks>` — atur bio singkat yang tampil di kartu profil
-- `.quote <teks> | <author>` — buat kartu kutipan canvas siap dibagikan (bisa reply gambar untuk jadi background)
-- Engine: `@napi-rs/canvas` (native, ringan, jalan di Termux/VPS/Panel)
-
-### 🔘 Fitur Interaktif (Baru!)
-- `.ui` / `.menuinteraktif` — kirim menu dengan gambar + tombol asli WhatsApp
-- Helper `lib/button.js` bisa dipakai plugin lain untuk kirim pesan tombol/list interaktif, dengan fallback otomatis ke teks bernomor jika perangkat tidak mendukung
-
-### 👑 File Editor Owner (Baru!)
-- `.listfiles [folder]` — lihat isi folder project bot
-- `.readfile <path>` — baca isi file (misal `config.js`, `plugins/main/settings.js`)
-- `.editfile <path>` + baris baru + isi baru — **ubah langsung file bot dari chat WhatsApp**, otomatis backup ke `.bak` dan reload plugin bila perlu
-- `.restorefile <path>` — kembalikan file dari backup terakhir
+| 🎮 **Fun** | Magic 8ball, Dice, Coin, Quote, Roast, Pujian, Gay Rate, Ship/Cintaan, Truth, Dare, Tebak Angka, Waifu, Neko, Meme, Joke, Zodiak, Sticker, AI Chatbot |
+| 🛠️ **Tools** | Kalkulator, Wikipedia, QR Code, URL Shortener, Kamus, Cuaca, Translate, Color Info, IP Lookup, Cek Website |
+| 📥 **Downloader** | YouTube MP3, YouTube MP4, TikTok (No WM), Instagram |
+| 👥 **Group** | TagAll, HideTag, Kick, Add, Promote, Demote, Group Info, Link, Anti Link, Mute/Unmute, Set Nama, Set Desc |
+| 👑 **Owner** | Broadcast, Block/Unblock, Runtime, Eval, Restart, Reload, Set Nama Bot |
+| ⚙️ **Sistem** | Menu, All Menu, Ping, Info Bot, Help, Plugin Manager |
 
 ---
 
-## 🚀 Cara Install
-
-### Termux (Android)
-```bash
-pkg update && pkg install nodejs git -y
-git clone https://github.com/kevsoft-id/mino-bot || unzip mino-bot-ultra.zip
-cd mino-bot
-bash install.sh
-```
-
-### VPS Ubuntu/Debian
-```bash
-apt update && apt install nodejs npm git -y
-unzip mino-bot-ultra.zip
-cd mino-bot
-bash install.sh
-```
-
-### Panel (cPanel, Pterodactyl, dll)
-1. Upload & extract `mino-bot-ultra.zip`
-2. Buka terminal / file manager
-3. Edit `.env` sesuai kebutuhan
-4. Jalankan `npm install` lalu `node index.js`
-
----
-
-## ⚙️ Konfigurasi (.env)
-
-```env
-BOT_NAME=Mino Bot Ultra
-OWNER_NUMBER=6281234567890
-PREFIX=.
-MODE=public
-GEMINI_API_KEY=your_key_here   # Gratis di aistudio.google.com
-TIMEZONE=Asia/Jakarta
-```
-
----
-
-## ▶️ Cara Menjalankan
+## 🚀 Cara Install di Termux
 
 ```bash
-# Mode biasa
-node index.js
+# 1. Update dan install Node.js
+pkg update && pkg upgrade
+pkg install nodejs git
 
-# Mode PM2 (background, auto-restart)
-bash start.sh pm2
+# 2. Clone atau extract bot
+# Jika dari zip: extract ke folder wa-bot/
+# Jika dari git: git clone https://github.com/kevsoft-id/mino-bot
 
-# Mode development
-bash start.sh dev
+# 3. Masuk ke folder bot
+cd wa-bot
+
+# 4. Install dependencies
+npm install
+
+# 5. Jalankan bot
+npm start
 ```
 
 ---
 
-## 🧠 Fitur AddFitur (UNIK!)
+## ⚙️ Konfigurasi
 
-Tambah fitur baru tanpa coding manual!
+Edit file `settings.js`:
 
-```
-.addfitur buat command .palindrom yang mengecek apakah kata adalah palindrom
-.addfitur buat command .kalkulator dengan operasi tambah kurang kali bagi
-.addfitur buat command .motivasiinggris yang menampilkan motivasi Bahasa Inggris
-```
-
-AI Gemini akan otomatis:
-1. Generate kode plugin JavaScript
-2. Simpan ke `plugins/addfitur/`
-3. Auto-reload plugins
-4. Plugin langsung bisa digunakan!
-
----
-
-## 📋 Daftar Perintah Utama
-
-```
-.menu          → Menu utama
-.help          → Bantuan
-.ai <tanya>   → Chat AI Gemini
-.settings      → Konfigurasi bot (owner)
-.addfitur      → Tambah fitur via AI (owner)
-.ping          → Cek latency
-.sticker       → Buat stiker
-.ytmp3 <url>  → Download YouTube audio
-.tiktok <url> → Download TikTok
-.quiz          → Main kuis
-.daily         → Klaim koin harian
-.sholat <kota> → Jadwal sholat
-.quran 1:1    → Baca Al-Quran
+```js
+botName: 'MinoBot',           // Nama bot (boleh diganti)
+botNumber: '6281234567890',   // Nomor WA bot
+ownerNumber: ['628xxxxxxxxx'], // Nomor owner (bisa lebih dari satu)
+prefix: '.',                   // Prefix perintah
 ```
 
 ---
 
-## 📁 Struktur Direktori
+## 🖼️ Setup Gambar Thumbnail
+
+Letakkan gambar-gambar di folder `media/`:
 
 ```
-mino-bot/
-├── index.js              ← Entry point
-├── config.js             ← Konfigurasi
-├── handler.js            ← Handler pesan + anti-spam + auto-AI
-├── .env                  ← Variabel lingkungan
+wa-bot/
+└── media/
+    ├── menu.png      ← Gambar utama menu (neko kawaii)
+    ├── thumb.png     ← Thumbnail default
+    ├── banner.png    ← Banner bot
+    ├── logo.png      ← Logo developer
+    └── bg.jpg        ← Background
+```
+
+> Jalankan `bash setup.sh` untuk otomatis copy gambar dari attached_assets
+
+---
+
+## 📱 Cara Pakai
+
+1. Scan QR Code yang muncul di terminal dengan WhatsApp kamu
+2. Tunggu hingga muncul "Bot MINOBOT aktif nya~"
+3. Kirim `.menu` untuk melihat semua fitur
+4. Kirim `.test` untuk tes apakah bot aktif
+
+---
+
+## 📋 Daftar Perintah Lengkap
+
+Kirim `.allmenu` di WhatsApp untuk melihat semua perintah!
+
+---
+
+## 🔌 Plugin System
+
+### Tambah Plugin dari URL:
+```
+.addplugin https://raw.githubusercontent.com/.../plugin.js
+```
+
+### Format Plugin:
+```js
+module.exports = {
+  commands:    ['nama', 'alias'],  // Perintah
+  category:    'Fun',              // Kategori
+  description: 'Deskripsi plugin',
+  usage:       '.nama <args>',
+  ownerOnly:   false,              // Khusus owner?
+  groupOnly:   false,              // Hanya di grup?
+  adminOnly:   false,              // Butuh admin grup?
+  botAdmin:    false,              // Bot harus admin?
+  
+  async handler(sock, m, { args, text, reply, react, isOwner, isAdmin, isGroup, pushName, mentions, quotedSender, groupMetadata, jid, prefix, command }) {
+    await reply('Hello World!');
+  },
+};
+```
+
+---
+
+## 📁 Struktur Folder
+
+```
+wa-bot/
+├── index.js                    ← Entry point
+├── settings.js                 ← Konfigurasi bot
+├── package.json
+├── session/                    ← Sesi WhatsApp (auto dibuat)
+├── media/                      ← Gambar thumbnail
 ├── lib/
-│   ├── gemini.js         ← Klien AI Gemini
-│   ├── database.js       ← Database JSON
-│   ├── function.js       ← Fungsi utilitas
-│   ├── menu.js           ← Builder menu
-│   └── sender.js         ← Helper kirim pesan
-├── plugins/
-│   ├── main/             ← Menu, Settings, dll
-│   ├── ai/               ← Semua fitur AI
-│   ├── tools/            ← Alat-alat
-│   ├── downloader/       ← Downloader
-│   ├── group/            ← Manajemen grup
-│   ├── game/             ← Permainan
-│   ├── fun/              ← Hiburan
-│   ├── search/           ← Pencarian
-│   ├── islamic/          ← Fitur islami
-│   ├── economy/          ← Sistem ekonomi
-│   ├── converter/        ← Konverter
-│   ├── owner/            ← Owner only
-│   └── addfitur/         ← Plugin buatan AI
-└── database/
-    ├── users.json        ← Data pengguna
-    ├── groups.json       ← Pengaturan grup
-    └── settings.json     ← Pengaturan global
+│   ├── connection.js           ← Koneksi WhatsApp
+│   ├── handler.js              ← Handler pesan
+│   ├── loader.js               ← Plugin loader
+│   ├── utils.js                ← Utility functions
+│   ├── queue.js                ← Antrian pesan
+│   ├── ratelimit.js            ← Anti-spam
+│   └── license.js              ← Lisensi & watermark
+└── x-system/plugin/
+    ├── main/                   ← Plugin utama
+    ├── fun/                    ← Plugin hiburan
+    ├── tools/                  ← Plugin utilitas
+    ├── downloader/             ← Plugin downloader
+    ├── group/                  ← Plugin grup
+    ├── owner/                  ← Plugin owner
+    └── extra/                  ← Plugin tambahan (via .addplugin)
 ```
 
 ---
 
-## 💡 Tips
+## ⚠️ Ketentuan Penggunaan
 
-- **Auto AI**: Ketik `.autoai on` di grup untuk auto-reply semua pesan dengan AI
-- **Anti Link**: Ketik `.antilink on` di grup untuk blokir link
-- **Welcome**: Ketik `.welcome on` + `.setwelcome Halo @user!` untuk pesan sambutan
-- **PM2**: Gunakan `pm2 logs mino-bot` untuk lihat log real-time
-- **Gemini API Key**: Gratis di [aistudio.google.com](https://aistudio.google.com/apikey)
+1. ❌ Dilarang menghapus kredit & watermark developer
+2. ❌ Dilarang memperjualbelikan script ini
+3. ✅ Boleh rename bot sesuai keinginan
 
 ---
 
-## 📞 Support
+## 🤝 Kontribusi
 
-- Owner: kevsoft-id
-- GitHub: github.com/kevsoft-id
+Pull Request dan plugin baru sangat disambut! Visit: [github.com/kevsoft-id/mino-bot](https://github.com/kevsoft-id/mino-bot)
 
 ---
 
-*Made with ❤️ by kevsoft-id — Mino Bot Ultra v2.0*
+*Created by Kevin (KevSoft-ID) © 2026. All rights reserved.*
