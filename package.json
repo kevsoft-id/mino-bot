@@ -28,6 +28,7 @@
   "dependencies": {
     "@hapi/boom": "^10.0.1",
     "@whiskeysockets/baileys": "7.0.0-rc13",
+    "adm-zip": "^0.5.18",
     "axios": "^1.18.1",
     "chalk": "^4.1.2",
     "cheerio": "^1.2.0",

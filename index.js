@@ -59,6 +59,20 @@ function attachHandlers(sock) {
     } catch (err) {
       console.error(chalk.red('[Main] Unhandled error:'), err.message);
     }
+
+    // ── Secondary feature hooks (run for ALL messages, incl non-command) ──
+    if (upsert.type !== 'notify') return;
+    for (const m of upsert.messages) {
+      try { if (global._antibadwordCheck) await global._antibadwordCheck(sock, m); } catch {}
+      try { if (global._slowmodeCheck)    await global._slowmodeCheck(sock, m);    } catch {}
+      try { if (global._afkCheck)         await global._afkCheck(sock, m);         } catch {}
+      try {
+        if (global._groupMsgCount && m.key?.remoteJid?.endsWith('@g.us')) {
+          const sender = m.key.participant || m.participant;
+          if (sender) global._groupMsgCount(m.key.remoteJid, sender);
+        }
+      } catch {}
+    }
   });
   console.log(chalk.green('[Main] ✓ Event handler terpasang'));
 }

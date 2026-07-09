@@ -120,4 +120,43 @@ module.exports = {
 
   // ─── WAKTU ZONA ───────────────────────────────────────────
   timezone: 'Asia/Jakarta',
+
+  // ═══════════════════════════════════════════════════════════
+  // ─── API KEYS (isi sesuai kebutuhanmu) ───────────────────
+  // ═══════════════════════════════════════════════════════════
+
+  // OpenRouter — https://openrouter.ai/keys
+  // Digunakan untuk: .ai .gpt .claude .gemini .llama .createweb dll
+  openRouterApiKey: '',
+
+  // Model AI default untuk setiap alias (harus tersedia di OpenRouter)
+  aiModels: {
+    default:  'openai/gpt-4o-mini',        // .ai
+    gpt:      'openai/gpt-4o',             // .gpt
+    claude:   'anthropic/claude-3.5-sonnet', // .claude
+    gemini:   'google/gemini-flash-1.5',   // .gemini
+    llama:    'meta-llama/llama-3.1-70b-instruct', // .llama
+    mistral:  'mistralai/mistral-7b-instruct',     // .mistral
+    createweb: 'openai/gpt-4o',            // .createweb
+  },
+
+  // ElevenLabs — https://elevenlabs.io (API Keys di profile)
+  // Digunakan untuk: .tts
+  elevenLabsApiKey: '',
+
+  // GitHub Personal Access Token — https://github.com/settings/tokens
+  // Scope yang dibutuhkan: repo (full)
+  // Digunakan untuk: .ghdeploy .github .ghrepo
+  githubToken: '',
+
+  // Vercel Token — https://vercel.com/account/tokens
+  // Digunakan untuk: .vercel
+  vercelToken: '',
+
+  // Pixabay API Key — https://pixabay.com/api/docs/ (gratis)
+  // Digunakan untuk: .unsplash .foto
+  pixabayApiKey: '',
+
+  // ─── AI SYSTEM PROMPT ──────────────────────────────────────
+  aiSystemPrompt: `Kamu adalah ${bold('KEVSOFT BOT')}, asisten AI cerdas dan ramah. Jawab dalam bahasa yang sama dengan pertanyaan user. Jika tidak ada konteks khusus, jawab secara singkat, padat, dan informatif.`,
 };
