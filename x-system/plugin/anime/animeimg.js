@@ -1,8 +1,8 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
-const settings = require('../../../../settings');
+const settings = require('../../../settings');
 const axios    = require('axios');
-const { replyImage, replyList } = require('../../../../lib/utils');
+const { replyImage, replyList } = require('../../../lib/utils');
 
 const CATEGORIES = [
   'neko','kitsune','shinobu','megumin','waifu','maid','uniform',

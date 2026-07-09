@@ -1,7 +1,7 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
-const settings = require('../../../../settings');
-const store    = require('../../../../lib/store');
+const settings = require('../../../settings');
+const store    = require('../../../lib/store');
 
 function isNsfwEnabled(jid) { return store.get('nsfw', jid, false); }
 module.exports.isNsfwEnabled = isNsfwEnabled;

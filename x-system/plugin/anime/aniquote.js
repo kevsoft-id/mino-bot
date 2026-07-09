@@ -1,6 +1,6 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
-const settings = require('../../../../settings');
+const settings = require('../../../settings');
 const axios    = require('axios');
 
 const FALLBACK_QUOTES = [
