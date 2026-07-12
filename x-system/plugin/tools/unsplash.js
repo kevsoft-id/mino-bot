@@ -2,7 +2,7 @@
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
 const axios    = require('axios');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 module.exports = {
   commands:    ['unsplash', 'foto', 'gambar', 'image', 'pixabay'],

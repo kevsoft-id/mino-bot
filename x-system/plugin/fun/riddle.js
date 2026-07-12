@@ -1,7 +1,7 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 const RIDDLES = [
   { q: 'Apa yang bisa terbang tanpa sayap?', a: 'waktu' },

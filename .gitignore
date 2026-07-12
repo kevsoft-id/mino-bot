@@ -1,5 +1,29 @@
+# Dependencies
 node_modules/
-session/
-*.log
+
+# WhatsApp session / auth credentials — NEVER commit these
+session/*
+!session/.gitkeep
+
+# Runtime data (auto-regenerated on first run)
+data/*.json
+!data/.gitkeep
+
+# User-dropped plugins (kept local, not part of the published bot)
+x-system/plugin/extra/*
+!x-system/plugin/extra/.gitkeep
+
+# Env & secrets
 .env
-x-system/plugin/extra/
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

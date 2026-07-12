@@ -1,6 +1,6 @@
 'use strict';
 const axios    = require('axios');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 const LANGS = {
   'en': 'Inggris', 'id': 'Indonesia', 'ja': 'Jepang', 'ko': 'Korea',

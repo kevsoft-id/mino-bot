@@ -2,7 +2,7 @@
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
 const axios    = require('axios');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 const { truncate } = require('../../../lib/utils');
 
 module.exports = [

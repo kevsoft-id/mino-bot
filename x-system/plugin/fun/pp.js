@@ -1,5 +1,5 @@
 'use strict';
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 module.exports = {
   commands: ['pp', 'foto', 'profil', 'avatar'],

@@ -1,6 +1,6 @@
 'use strict';
 const axios    = require('axios');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 module.exports = {
   commands: ['ytmp3', 'yta', 'ytaudio', 'music'],

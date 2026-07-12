@@ -2,7 +2,7 @@
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
 const axios    = require('axios');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 // Google TTS — gratis, tanpa API key
 async function googleTTS(text, lang = 'id') {

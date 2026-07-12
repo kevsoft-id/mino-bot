@@ -1,7 +1,7 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 // Handles: poke, bite, wave, cuddle, dance, cry, blush, wink, smile, bored
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 const axios    = require('axios');
 const { replyGif, reply: replyFn } = require('../../../lib/utils');
 

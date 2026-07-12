@@ -1,6 +1,6 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 const BULLY_MSGS = [
   'Eh {name}, kamu tuh hidupnya kayak WiFi tetangga — kelihatan tapi nggak bisa dipake 😂',

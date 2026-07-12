@@ -1,6 +1,6 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 const { replyImage } = require('../../../lib/utils');
 
 function shipScore(a, b) {

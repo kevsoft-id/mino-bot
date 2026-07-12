@@ -21,13 +21,15 @@
 
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
-require('./lib/license').verifyIntegrity();
+const license = require('./lib/license');
+license.verifyIntegrity();
+license.startWatch(); // re-cek berkala (default 10 menit) selama bot berjalan
 
 const chalk               = require('chalk');
 const { createConnection }  = require('./lib/connection');
 const { handleMessage }     = require('./lib/handler');
 const { loadPlugins, watchPlugins } = require('./lib/loader');
-const settings              = require('./settings');
+const settings              = require('./set/settings');
 
 global.plugins   = new Map();
 global.startTime = Date.now();
@@ -37,18 +39,71 @@ global.db        = {};  // In-memory DB untuk group settings (antilink, welcome,
 function printBanner() {
   const v = settings.botVersion;
   console.log(chalk.cyan(`
-  ██╗  ██╗███████╗██╗   ██╗███████╗ ██████╗ ███████╗████████╗
-  ██║ ██╔╝██╔════╝██║   ██║██╔════╝██╔═══██╗██╔════╝╚══██╔══╝
-  █████╔╝ █████╗  ██║   ██║███████╗██║   ██║█████╗     ██║
-  ██╔═██╗ ██╔══╝  ╚██╗ ██╔╝╚════██║██║   ██║██╔══╝     ██║
-  ██║  ██╗███████╗ ╚████╔╝ ███████║╚██████╔╝██║        ██║
-  ╚═╝  ╚═╝╚══════╝  ╚═══╝  ╚══════╝ ╚═════╝ ╚═╝        ╚═╝`));
-  console.log(chalk.white(`
-  ──────────────────────────────────────────────────────────────
-   ${chalk.bold('KEVSOFT BOT')} v${v}  •  Logic Driven, High Performance.
-   by Kevin (KevSoft-ID)  •  ${settings.webUrl}  •  ${settings.botTag}
-  ──────────────────────────────────────────────────────────────
-`));
+⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠠⠀⠠⠀⠀⠄⠀⢤⡿⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠠⠀⠠⠀⠀⠄⠀⠄
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠃⠈⢃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠃⠀⠀⠀
+⠀⠀⠀⢀⠀⠀⠀⠀⡀⠀⢀⠀⢀⠀⠀⣀⣾⠏⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⣀⣴⠟⠀⠀⡀⠀⠀
+⠄⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⡟⠀⡀⠀⢰⠀⠀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠀⠀⣠⣾⣿⠁⠀⠰⠀⠀⠀⠀
+⠀⠀⠀⠈⠀⠀⠀⠀⠁⠀⠀⠀⠈⢀⣾⣿⠇⡔⢳⣀⣸⣀⡀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠋⠀⠀⠀⠠⠀⠀⠀⠀
+⡀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⢐⣿⣿⣿⡼⠀⠀⠀⠈⢹⠃⡀⠀⢀⠀⢀⠀⠀⡀⠀⡀⣠⣶⣿⡿⠋⣀⣠⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⢿⡏⠀⠀⠀⠀⠀⠀⠙⠦⠤⠤⠤⢤⣴⣆⠀⢠⣾⣟⣿⣿⠗⠉⠰⠥⠄⣠⠀⠀⠀⠀⠀⠀
+⠁⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⣸⣿⣿⣾⠇⠀⠀⠀⠀⠀⣤⠼⠃⠀⠀⠀⠀⠉⠢⡙⠻⢿⣿⡿⠃⠀⠀⠀⠀⠛⢏⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠿⠋⡿⠿⠀⠀⣠⣤⡤⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠈⢦⡀⠙⠲⣄⠀⠀⠀⠀⠀⣈⣳⠆⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠋⠀⠀⠀⠀⠀⢀⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⡀⠀⠈⠳⡄⠀⠀⢿⠃⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢠⠟⠀⠀⠀⠀⠀⠀⢀⠎⠀⠀⠀⠀⠀⠀⢠⡾⠀⠀⡆⠀⠀⠀⠀⠀⣷⡀⠀⠀⠘⢦⢤⣼⡆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢠⠏⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠀⠀⠀⢠⠏⣇⠀⠀⡄⠀⠀⠀⠀⠀⢹⢳⠀⠀⠀⠈⢧⠁⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠀⢀⢾⠁⠀⠀⠀⠀⠀⣰⣇⣀⣹⡀⢰⠁⠀⠀⠀⠀⣀⣼⣨⣇⠀⠀⠀⣸⣿⣀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⡇⠀⠀⠀⠀⢀⡴⠋⠎⠀⠀⠀⠀⠀⢠⠃⠀⠀⢸⠀⢸⠀⠀⠀⠀⠀⢠⠇⠀⠸⡄⠀⠸⣿⣿⣿⡆⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢸⡇⠀⠀⢀⡤⠊⠀⠀⠀⠀⠀⠀⠀⢠⠇⠀⠀⠀⠀⣇⡆⠀⠀⠀⠀⢀⡎⠀⠀⠀⢳⠀⠀⠈⢿⣿⡁⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠈⣇⣠⣔⣁⠤⠔⠒⠉⣷⠀⠀⠀⢠⠏⣀⣀⣀⣀⡀⢹⠇⠀⠀⠀⢀⡞⢀⣠⣤⣶⣬⣇⠀⠀⡼⢷⣷⡀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢯⠉⠁⠀⠀⠀⠀⠆⠹⡆⠀⢠⣿⣾⢿⣿⣿⣿⡿⣿⠄⠀⠀⣠⡾⠡⣿⣿⣿⡍⠙⣿⠁⢀⣿⡆⠀⠙⣄⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠸⡄⠀⠀⠀⠀⢸⠀⠀⠹⡀⣼⡏⠁⣸⣿⣿⢿⡷⡇⠀⣠⠞⢹⠃⠀⡿⡟⢿⠃⠀⡟⡆⢸⠀⠑⠢⠤⠼⠆⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣧⠀⠀⠀⠀⢸⠀⠀⠀⠳⡇⢳⠀⢻⣄⠀⢰⢣⡧⠞⠀⠀⠀⠀⠀⢿⣀⡼⠀⢰⠇⠹⢻⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢰⠛⠀⠀⠀⠀⢸⡆⠀⠀⠀⠉⠀⢧⠀⢙⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⢁⢠⣾⡀⠀⢸⠀⠀⣶⡿⣿⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⡎⠀⢠⠀⠀⠀⠀⡇⠀⠀⠀⠀⢲⣄⣿⡌⠦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡀⣿⠃⠀⢸⠀⠀⢸⠟⠛⠀⠀⠀
+⠀⠀⠀⠀⢀⠞⢀⣠⠃⠀⠀⠀⡔⢻⢸⡀⠀⠀⠈⡇⠙⠓⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠀⠀⠀⣠⠟⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⢀⡴⠗⠚⠉⢸⠀⠀⠀⢠⡇⠀⠟⢣⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡞⠉⠀⠀⠀⣸⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠸⡄⠀⠀⡸⠹⡄⠀⢈⣇⠀⠀⣧⠀⠀⠘⢷⣶⣤⣄⣀⣀⣀⡤⠔⠋⢧⡿⡀⠀⠀⠀⡟⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀⡇⠀⢙⣶⣿⣿⡆⠀⣿⢦⡀⠀⠀⢹⣿⣦⣀⣩⠟⠀⠀⠀⠈⠁⢣⠀⠀⢰⡇⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠳⠞⢣⡴⠋⠀⢿⣿⣿⡄⣟⣶⡻⣦⣀⢀⣿⣻⣿⣿⣄⡀⠀⠀⠀⠀⠈⢆⢀⡾⠀⠀⠀⠀⠀⠀⠀⠀⠀`));
+
+  const c        = ['cyan', 'blueBright', 'blue'];
+  const grad     = (s) => s.split('').map((ch, i) => chalk[c[i % c.length]](ch)).join('');
+  const W        = 54;
+  const top      = '╔' + '═'.repeat(W) + '╗';
+  const bot      = '╚' + '═'.repeat(W) + '╝';
+  const sep      = '╟' + '─'.repeat(W) + '╢';
+  const row      = (s = '') => {
+    const plain = s.replace(/\x1b\[[0-9;]*m/g, '');
+    return `║ ${s}${' '.repeat(Math.max(0, W - plain.length - 1))}║`;
+  };
+
+  const devs = settings.credits?.additionalDevs || [];
+
+  const lines = [
+    chalk.cyanBright(top),
+    chalk.cyanBright(row(grad(`  ⬡ ${settings.botName} `) + chalk.gray(`v${v}`))),
+    chalk.cyanBright(row(chalk.dim('  ' + settings.botDesc))),
+    chalk.cyanBright(sep),
+    chalk.cyanBright(row(`  ${chalk.green('●')} STATUS      ${chalk.greenBright.bold('ONLINE')}`)),
+    chalk.cyanBright(row(`  ${chalk.blueBright('◆')} DEVELOPER   ${chalk.white.bold('Kevin')} ${chalk.gray('(KevSoft-ID)')}`)),
+    chalk.cyanBright(row(`  ${chalk.blueBright('◆')} GITHUB      ${chalk.underline('github.com/kevsoft-id')}`)),
+    chalk.cyanBright(row(`  ${chalk.blueBright('◆')} WEB         ${settings.webUrl}`)),
+    chalk.cyanBright(row(`  ${chalk.blueBright('◆')} TAG         ${settings.botTag}`)),
+  ];
+
+  if (devs.length) {
+    lines.push(chalk.cyanBright(sep));
+    lines.push(chalk.cyanBright(row(`  ${chalk.magentaBright('◆')} KONTRIBUTOR`)));
+    for (const d of devs) {
+      const name = typeof d === 'string' ? d : d.name;
+      const role = typeof d === 'string' ? '' : (d.role ? chalk.gray(` — ${d.role}`) : '');
+      lines.push(chalk.cyanBright(row(`     ${chalk.white('•')} ${name}${role}`)));
+    }
+  }
+
+  lines.push(chalk.cyanBright(bot));
+  console.log(lines.join('\n'));
+  console.log(chalk.gray(`  [ system ] plugin-engine v${v}  ·  node ${process.version}  ·  license: verified\n`));
 }
 
 function attachHandlers(sock) {

@@ -2,7 +2,7 @@
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
 const axios    = require('axios');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 const LOCAL_FACTS = [
   'Gurita memiliki 3 jantung dan darahnya berwarna biru!',

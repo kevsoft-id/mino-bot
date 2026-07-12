@@ -1,6 +1,6 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 const { replyList } = require('../../../lib/utils');
 
 // ─── Unicode font map table ──────────────────────────────────
@@ -27,9 +27,12 @@ const FONT_LABELS = {
 function convert(text, fontKey) {
   const map = FONTS[fontKey];
   if (!map) return text;
-  return text.split('').map(c => {
+  // NOTE: font glyphs are astral (surrogate-pair) code points — split/index
+  // by code point via Array.from, not String.split(''), or output garbles.
+  const glyphs = Array.from(map);
+  return Array.from(text).map(c => {
     const i = ALPHA.indexOf(c);
-    return i >= 0 ? [...map][i] : c;
+    return i >= 0 ? glyphs[i] : c;
   }).join('');
 }
 

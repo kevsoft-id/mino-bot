@@ -2,7 +2,7 @@
 
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 module.exports = {
   commands:    ['ping', 'latency', 'speed'],

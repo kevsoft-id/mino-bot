@@ -2,7 +2,7 @@
 
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 const { replyImage, replyList } = require('../../../lib/utils');
 
 // ── Peta kategori: key canonical → info tampilan ─────────────

@@ -1,7 +1,7 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 const QUOTES = [
   { q: 'Jangan takut gagal. Takutlah untuk tidak mencoba.', a: 'Michael Jordan' },

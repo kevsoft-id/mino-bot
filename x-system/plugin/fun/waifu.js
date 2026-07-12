@@ -1,6 +1,6 @@
 'use strict';
 const axios    = require('axios');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 const { randPick } = require('../../../lib/utils');
 
 const CATEGORIES = ['waifu', 'neko', 'shinobu', 'mori-calliope', 'raiden-shogun', 'oppai', 'uniform', 'kamisato-ayaka'];

@@ -1,7 +1,7 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 module.exports = {
   commands:    ['countword', 'wordcount', 'hitungkata', 'charcount', 'hitungkarakter'],

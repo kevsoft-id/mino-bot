@@ -2,7 +2,7 @@
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
 const axios    = require('axios');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 const MODELS = {
   ai:      { key: 'default',  label: 'GPT-4o Mini',        emoji: '🤖' },

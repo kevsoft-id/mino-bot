@@ -1,7 +1,7 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 module.exports = {
   commands:    ['thanksto', 'credits', 'about', 'tentang', 'credit'],
@@ -29,6 +29,7 @@ module.exports = {
       `    🐙 GitHub : github.com/kevsoft-id`,
       `    💬 Tag    : @kevsoft_id`,
       '',
+      ...contributorLines(theme),
       ` ⬡  🙏  ${theme.bold('THANKS TO')}`,
       '',
       `    • @whiskeysockets/baileys — WA Connection`,
@@ -55,6 +56,19 @@ module.exports = {
     ].join('\n'));
   },
 };
+
+function contributorLines(theme) {
+  const devs = settings.credits?.additionalDevs || [];
+  if (!devs.length) return [];
+  const lines = [` ⬡  🤝  ${theme.bold('PENGEMBANG TAMBAHAN')}`, ''];
+  for (const d of devs) {
+    const name = typeof d === 'string' ? d : d.name;
+    const role = typeof d === 'string' ? '' : (d.role ? ` — ${d.role}` : '');
+    lines.push(`    🧑‍💻 *${name}*${role}`);
+  }
+  lines.push('');
+  return lines;
+}
 
 function formatUptime(sec) {
   const d = Math.floor(sec / 86400);

@@ -1,5 +1,5 @@
 'use strict';
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 module.exports = {
   commands:  ['promote', 'jadiadmin', 'prom'],

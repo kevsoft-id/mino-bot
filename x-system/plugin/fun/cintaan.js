@@ -1,5 +1,5 @@
 'use strict';
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 function calcRate(a, b) {
   // Pseudo-random tapi konsisten berdasarkan nama

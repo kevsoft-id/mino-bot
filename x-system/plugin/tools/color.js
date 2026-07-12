@@ -1,5 +1,5 @@
 'use strict';
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 function hexToRgb(hex) {
   const clean = hex.replace('#', '');

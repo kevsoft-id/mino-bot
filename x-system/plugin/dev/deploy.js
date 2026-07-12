@@ -3,7 +3,7 @@
 
 const axios    = require('axios');
 const AdmZip   = require('adm-zip');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 // Download quoted document from WhatsApp
 async function downloadQuotedDoc(sock, m) {

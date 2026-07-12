@@ -2,8 +2,9 @@
 
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
-const settings = require('../../../settings');
-const { replyImage } = require('../../../lib/utils');
+const settings = require('../../../set/settings');
+const fs = require('fs'); // Tambahkan fs untuk membaca file video jika diperlukan
+const path = require('path');
 
 // ── Urutan tampilan kategori yang diinginkan ──────────────────
 const CAT_ORDER = ['Main', 'Fun', 'Tools', 'Downloader', 'Group', 'Owner', 'Extra'];
@@ -52,7 +53,7 @@ function sortedCategories(catMap) {
 module.exports = {
   commands:    ['allmenu', 'allcmd', 'semua', 'listcmd'],
   category:    'Main',
-  description: 'Tampilkan SEMUA perintah bot berdasarkan kategori',
+  description: 'Tampilkan SEMUA perintah bot berdasarkan kategori berupa Video/GIF',
   usage:       '.allmenu',
 
   async handler(sock, m, { reply: replyFn }) {
@@ -107,7 +108,19 @@ module.exports = {
 
     const text = lines.join('\n');
 
-    // Kirim dengan thumbnail dari URL (fallback ke teks jika gagal)
-    return replyImage(sock, m, settings.images.thumb, text);
+    // Path ke file video/gif lokal
+    const videoPath = path.join(process.cwd(), 'media', 'thumb.mp4');
+
+    // Mengirim video sebagai GIF dengan teks menu sebagai caption dalam 1 pesan
+    if (fs.existsSync(videoPath)) {
+      return await sock.sendMessage(m.key.remoteJid, {
+        video: fs.readFileSync(videoPath),
+        gifPlayback: true, // Membuat video terputar otomatis berulang-ulang seperti GIF
+        caption: text
+      }, { quoted: m });
+    } else {
+      // Fallback ke teks biasa jika file video tidak ditemukan
+      return replyFn(text);
+    }
   },
 };

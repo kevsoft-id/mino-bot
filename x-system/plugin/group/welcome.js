@@ -2,7 +2,7 @@
 
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 // Per-group welcome toggle (stored in global.db)
 function getWelcomeState(jid) {

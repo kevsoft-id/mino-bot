@@ -1,6 +1,6 @@
 'use strict';
 const QRCode  = require('qrcode');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 module.exports = {
   commands: ['qr', 'qrcode', 'buatqr'],

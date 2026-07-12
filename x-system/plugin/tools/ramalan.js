@@ -1,7 +1,7 @@
 'use strict';
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 const ZODIACS = {
   aries:       { emoji: '♈', dates: '21 Mar – 19 Apr' },

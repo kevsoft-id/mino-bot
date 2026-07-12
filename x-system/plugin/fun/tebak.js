@@ -1,5 +1,5 @@
 'use strict';
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 // Simple in-memory game state
 const games = new Map(); // jid -> { number, tries, timeout }

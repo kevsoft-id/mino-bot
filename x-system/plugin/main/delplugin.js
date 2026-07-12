@@ -2,7 +2,7 @@
 
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 const path     = require('path');
 const fs       = require('fs-extra');
 const { unloadPlugin } = require('../../../lib/loader');

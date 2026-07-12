@@ -1,5 +1,5 @@
 'use strict';
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 const { randPick } = require('../../../lib/utils');
 
 const ACTIVITIES = ['belajar', 'kerja', 'olah raga', 'nonton film', 'main game', 'masak', 'tidur siang', 'jalan-jalan', 'baca buku', 'dengerin musik'];

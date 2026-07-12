@@ -2,7 +2,7 @@
 // @minobot-seal:KevSoft-ID — JANGAN HAPUS BARIS INI
 
 const axios    = require('axios');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 const { replyDoc } = require('../../../lib/utils');
 
 const SYSTEM_PROMPT = `Kamu adalah ahli web developer profesional. Tugasmu adalah membuat kode HTML lengkap dan beautiful berdasarkan deskripsi yang diberikan user.

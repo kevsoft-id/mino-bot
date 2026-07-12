@@ -1,6 +1,6 @@
 'use strict';
 const axios    = require('axios');
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 const { randPick } = require('../../../lib/utils');
 
 // Fallback responses

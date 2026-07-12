@@ -1,5 +1,5 @@
 'use strict';
-const settings = require('../../../settings');
+const settings = require('../../../set/settings');
 
 // Simpan per-group setting
 const antilinkData = {}; // groupJid -> boolean

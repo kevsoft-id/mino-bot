@@ -1,9 +1,11 @@
 {
-  "name": "@workspace/wa-bot",
-  "version": "2.0.0",
+  "name": "wa-bot",
+  "version": "2.0.1",
   "description": "MINOBOT v2 — WhatsApp Bot with Full Plugin System by KevSoft-ID",
   "main": "index.js",
   "scripts": {
+    "postinstall": "node scripts/ensure-dirs.js",
+    "setup": "node scripts/ensure-dirs.js",
     "start": "node index.js",
     "dev": "node index.js"
   },
@@ -31,23 +33,20 @@
     "adm-zip": "^0.5.18",
     "axios": "^1.18.1",
     "chalk": "^4.1.2",
-    "cheerio": "^1.2.0",
     "fs-extra": "^11.3.6",
-    "jimp": "^1.6.1",
     "mathjs": "^15.2.0",
     "moment": "^2.30.1",
     "moment-timezone": "^0.6.2",
-    "node-cache": "^5.1.2",
     "pino": "^10.3.1",
     "qrcode": "^1.5.4"
   },
   "engines": {
     "node": ">=18.0.0"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@whiskeysockets/baileys",
-      "protobufjs"
-    ]
-  }
+  "os": [
+    "linux",
+    "darwin",
+    "win32",
+    "android"
+  ]
 }
