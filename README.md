@@ -80,7 +80,7 @@ Setelah berhasil login, sesi disimpan di folder `session/` — tidak perlu pairi
 
 ```bash
 pkg update && pkg install nodejs git -y
-git clone https://github.com/kevsoft-id/mino-bot.git wa-bot
+git clone https://github.com/kevsoft-id/mino-bot.git mino-bot
 cd wa-bot
 bash setup.sh
 npm start
@@ -92,7 +92,7 @@ npm start
 
 ```bash
 sudo apt update && sudo apt install -y nodejs npm   # sesuaikan package manager
-cd wa-bot
+cd mino-bot
 bash setup.sh
 ```
 
@@ -100,7 +100,7 @@ Jalankan permanen di background dengan **pm2** (disarankan, auto-restart jika cr
 
 ```bash
 npm install -g pm2
-pm2 start index.js --name wa-bot
+pm2 start index.js --name mino-bot
 pm2 save
 pm2 startup   # agar auto-start saat VPS reboot
 ```
@@ -108,7 +108,7 @@ pm2 startup   # agar auto-start saat VPS reboot
 ### Panel Pterodactyl
 
 1. Buat server baru dengan egg **"Generic Node.js"** (atau egg Node yang tersedia di panel kamu).
-2. Upload seluruh isi folder `wa-bot/` ke direktori server (lewat File Manager atau SFTP).
+2. Upload seluruh isi folder `mino-bot/` ke direktori server (lewat File Manager atau SFTP).
 3. **Startup Command**, isi salah satu:
    - `npm install && node index.js`
    - atau `bash start.sh` (jika egg mendukung bash)
@@ -126,7 +126,7 @@ pm2 startup   # agar auto-start saat VPS reboot
 ### Command Prompt / PowerShell (Windows)
 
 ```bat
-cd wa-bot
+cd mino-bot
 setup.bat
 npm start
 ```
@@ -272,3 +272,6 @@ di atas).
 - Author: [@kevsoft-id](https://github.com/kevsoft-id)
 
 *Created by Kevin © 2026. All rights reserved.*
+
+#ANDA INGIN BERPARTISIPASI? SILAHKAN HUBUNGI OWNER!!
+https://kirimwa.id/kevsoft-id 
