@@ -81,7 +81,7 @@ Setelah berhasil login, sesi disimpan di folder `session/` — tidak perlu pairi
 ```bash
 pkg update && pkg install nodejs git -y
 git clone https://github.com/kevsoft-id/mino-bot.git mino-bot
-cd wa-bot
+cd mino-bot
 bash setup.sh
 npm start
 ```
